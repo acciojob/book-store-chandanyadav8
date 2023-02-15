@@ -6,12 +6,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BookRepository {
     ArrayList<Book>bookDb;
+    private int id;
 
     public BookRepository(){
         bookDb=new ArrayList<>();
+        id=1;
     }
 
     public Book save(Book book){
+        book.setId(id++);
         bookDb.add(book);
         return book;
     }
@@ -52,7 +55,7 @@ public class BookRepository {
         ArrayList<Book>ans=new ArrayList<>();
         for(Book i:bookDb)
         {
-            if(i.getAuthor()==author)
+            if(i.getAuthor().equals(author))
             {
                 ans.add(i);
             }
@@ -64,7 +67,7 @@ public class BookRepository {
         ArrayList<Book>ans=new ArrayList<>();
         for(Book i:bookDb)
         {
-            if(i.getAuthor()==genre)
+            if(i.getAuthor().equals(genre))
             {
                 ans.add(i);
             }
