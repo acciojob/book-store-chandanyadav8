@@ -5,73 +5,58 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class BookRepository {
-    ArrayList<Book>bookDb;
+    ArrayList<Book>bookList;
     private int id;
 
     public BookRepository(){
-        bookDb=new ArrayList<>();
+        bookList=new ArrayList<>();
         id=1;
     }
 
     public Book save(Book book){
         book.setId(id++);
-        bookDb.add(book);
+        bookList.add(book);
         return book;
     }
 
     public Book findBookById(int id){
-        for(Book i:bookDb)
+        for(Book book : bookList)
         {
-            if(i.getId()==id)
-            {
-                return i;
-            }
+            if(id== book.getId())
+                return book;
         }
-
         return null;
     }
 
     public List<Book> findAll(){
-        return bookDb;
-    }
-
-    public void deleteBookById(int id){
-        for(Book i:bookDb)
-        {
-            if(i.getId()==id)
-            {
-               bookDb.remove(i);
-            }
-        }
-       return;
-    }
-
-    public void deleteAll(){
-        bookDb.clear();
-        return;
+        return bookList;
     }
 
     public List<Book> findBooksByAuthor(String author){
-        ArrayList<Book>ans=new ArrayList<>();
-        for(Book i:bookDb)
+        List<Book> listOfBooks=new ArrayList<>();
+        for(Book book : bookList)
         {
-            if(i.getAuthor().equals(author))
-            {
-                ans.add(i);
-            }
+            if(author.equals(book.getAuthor()))
+                listOfBooks.add(book);
         }
-        return ans;
+        return listOfBooks;
     }
 
     public List<Book> findBooksByGenre(String genre){
-        ArrayList<Book>ans=new ArrayList<>();
-        for(Book i:bookDb)
+        List<Book> listOfBooksByGenre=new ArrayList<>();
+        for(Book book: bookList)
         {
-            if(i.getAuthor().equals(genre))
-            {
-                ans.add(i);
-            }
+            if(genre.equals(book.getGenre()))
+                listOfBooksByGenre.add(book);
         }
-        return ans;
+        return listOfBooksByGenre;
+    }
+
+    public void deleteBookById(int id){
+        bookList.remove(id);
+    }
+
+    public void deleteAll(){
+        bookList.clear();
     }
 }
